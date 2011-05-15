@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="helloworld" default="all" basedir=".">
+	<import file="common.xml"/>
+	<target name="all" depends="build,sync,package"/>
+	<target name="package">
+		<antcall target="_package">
+			<param name="NAME" value="mod_helloworld"/>
+		</antcall>
+	</target>
+	<target name="build">
+		<antcall target="buildmodule">
+			<param name="NAME" value="mod_helloworld"/>
+			<param name="PREFIX" value=""/>
+		</antcall>
+	</target>
+	<target name="sync">
+		<antcall target="_sync">
+			<param name="NAME" value="mod_helloworld"/>
+		</antcall>
+	</target>
+</project>

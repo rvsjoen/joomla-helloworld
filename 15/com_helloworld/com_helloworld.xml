@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE install PUBLIC "-//Joomla! 1.5//DTD component 1.0//EN" "http://www.joomla.org/xml/dtd/1.5/component-install.dtd">
+<install type="component" version="1.5" method="upgrade">
+	<name>HelloWorld</name>
+	<creationDate></creationDate>
+	<author></author>
+	<authorEmail></authorEmail>
+	<authorUrl></authorUrl>
+	<copyright></copyright>
+	<license></license>
+	<version></version>
+	<description></description>
+	<installfile>install.com_helloworld.php</installfile>
+	<uninstallfile>uninstall.com_helloworld.php</uninstallfile>
+	<install>
+		<sql folder="admin/sql">
+			<file driver="mysql" charset="utf8">install.helloworld.sql</file>
+		</sql>
+	</install>
+	<uninstall>
+		<sql folder="admin/sql">
+			<file driver="mysql" charset="utf8">uninstall.helloworld.sql</file>
+		</sql>
+	</uninstall>
+	<media destination="com_helloworld" folder="media">
+		<folder>images</folder>
+		<folder>css</folder>
+		<folder>js</folder>
+		<filename>index.html</filename>
+	</media>
+	<languages folder="language/site">
+		<language tag="en-GB">en-GB.com_helloworld.ini</language>
+	</languages>
+	<files folder="site">
+		<folder>views</folder>
+		<folder>helpers</folder>
+		<folder>models</folder>
+		<folder>controllers</folder>
+		<filename>index.html</filename>
+		<filename>helloworld.php</filename>
+		<filename>router.php</filename>
+		<filename>controller.php</filename>
+	</files>
+	<administration>
+		<menu link="option=com_helloworld">HelloWorld</menu>
+		<files folder="admin">
+			<folder>views</folder>
+			<folder>models</folder>
+			<folder>controllers</folder>
+			<folder>tables</folder>
+			<filename>index.html</filename>
+			<filename>config.xml</filename>
+			<filename>admin.helloworld.php</filename>
+			<filename>controller.php</filename>
+			<filename>install.com_helloworld.php</filename>
+			<filename>uninstall.com_helloworld.php</filename>
+		</files>
+		<files folder="admin/sql">
+			<filename>install.helloworld.sql</filename>
+			<filename>uninstall.helloworld.sql</filename>
+		</files>
+		<languages folder="language/admin">
+			<language tag="en-GB">en-GB.com_helloworld.ini</language>
+			<language tag="en-GB">en-GB.com_helloworld.menu.ini</language>
+		</languages>
+	</administration>
+</install>
