@@ -7,7 +7,7 @@
 
 	<!-- Get a nice timestamp to put in the filename -->
 	<tstamp>
-		<format property="buildtime" pattern="%Y%m%d_%H%M"/>
+		<format property="version" pattern="%Y%m%d_%H%M"/>
 	</tstamp>
 
 	<!-- Check for the supported source code versioning tools -->
@@ -50,7 +50,7 @@
 
 	<!-- Build the extension package from the folder -->
 	<target name="dist" depends="init">
-		<zip destfile="${release.dir}/${extension}.zip">
+		<zip destfile="${release.dir}/${extension}_${version}.zip">
 			<fileset dir="${extension}" >
 				<include name="**/*"/>
 			</fileset>
