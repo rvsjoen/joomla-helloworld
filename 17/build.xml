@@ -10,17 +10,9 @@
 		<format property="version" pattern="%Y%m%d_%H%M"/>
 	</tstamp>
 
-	<!-- Check if we have a build.properties file -->
-	<available file="build.properties" type="file" property="build.properties" value="true" />
-
 	<!-- Do initialization stuff -->
 	<target name="prepare">
-		<if>
-			<equals arg1="${build.properties}" arg2="1" />
-			<then>
-				<property file="build.properties"  override="true"/>
-			</then>
-		</if>
+		<property file="build.properties"  override="true"/>
 		<if>
 			<equals arg1="${extension}" arg2="" />
 			<then>
