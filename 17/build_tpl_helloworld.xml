@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="hellotemplate" default="all" basedir=".">
+	<import file="common.xml"/>
+	<target name="all" depends="build,sync,package"/>
+	<target name="package">
+		<antcall target="_package">
+			<param name="NAME" value="helloworld"/>
+		</antcall>
+	</target>
+	<target name="build">
+		<antcall target="buildtemplate">
+			<param name="NAME" value="helloworld"/>
+			<param name="PREFIX" value=""/>
+		</antcall>
+	</target>
+	<target name="sync">
+		<antcall target="_sync">
+			<param name="NAME" value="helloworld"/>
+		</antcall>
+	</target>
+</project>
