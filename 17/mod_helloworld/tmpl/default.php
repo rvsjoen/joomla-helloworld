@@ -7,8 +7,6 @@
  * @license		GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-require_once dirname(__FILE__).'/helper.php';
+?>
 
-$hello = modHelloWorldHelper::getHello();
-
-require JModuleHelper::getLayoutPath('mod_helloworld', $params->get('layout', 'default'));
+<h1><?php echo $this->hello; ?></h1>
