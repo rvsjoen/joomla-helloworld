@@ -45,7 +45,7 @@
 	<!-- Delete the extension to make room for the updated version -->
 	<target name="_clean">
 		<delete includeemptydirs="true">
-		  <fileset dir="${project.dir}">
+		  <fileset dir="${extension}">
 		  	<include name="*" />
 		  	<include name="*/**" />
 		  </fileset>
@@ -54,7 +54,7 @@
 	
 	<!-- Copy the newly built extension into the repository -->
 	<target name="_sync">
-		<copy todir="${project.dir}">
+		<copy todir="${extension}">
 			<fileset dir="${build.dir}/${extension}">
 				<include name="**/*"/>
 			</fileset>
