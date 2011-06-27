@@ -62,6 +62,17 @@
 
 	<!-- Build target for modules -->
 	<target name="_module">
+		<available file="${source.dir}/media/${project.dir}" type="dir" property="source.media.available" value="true" />
+		<if>
+			<equals arg1="${source.media.available}" arg2="1" />
+			<then>
+				<copy todir="${build.dir}/${extension}/media" haltonerror="false">
+					<fileset dir="${source.dir}/media/${project.dir}">
+						<include name="**/*"/>
+					</fileset>
+				</copy>
+			</then>
+		</if>
 		<if>
 			<equals arg1="${project.client}" arg2="admin" />
 			<then>
@@ -91,6 +102,17 @@
 	<!-- Build target for components -->
 	<target name="_component">
 		<echo msg="Building component from source tree ${source.dir}" />
+		<available file="${source.dir}/media/${project.dir}" type="dir" property="source.media.available" value="true" />
+		<if>
+			<equals arg1="${source.media.available}" arg2="1" />
+			<then>
+				<copy todir="${build.dir}/${extension}/media" haltonerror="false">
+					<fileset dir="${source.dir}/media/${project.dir}">
+						<include name="**/*"/>
+					</fileset>
+				</copy>
+			</then>
+		</if>
 		<copy todir="${build.dir}/${extension}/site" haltonerror="false">
 			<fileset dir="${source.dir}/components/${project.dir}">
 				<include name="**/*"/>
@@ -101,24 +123,28 @@
 				<include name="**/*"/>
 			</fileset>
 		</copy>
-		<available file="${source.dir}/media/${project.dir}" type="dir" property="source.media.available" value="true" />
-		<if>
-			<equals arg1="${source.mediaavailable}" arg2="1" />
-			<then>
-				<copy todir="${build.dir}/${extension}/media" haltonerror="false">
-					<fileset dir="${source.dir}/media/${project.dir}">
-						<include name="**/*"/>
-					</fileset>
-				</copy>
-			</then>
-		</if>
-		<!-- Now move the manifest -->
-		<move file="${build.dir}/${extension}/admin/${project.name}.xml" todir="${build.dir}/${extension}/" />
 	</target>
 
 	<!-- Build target for plugins -->
 	<target name="_plugin">
+		<property name="source.dir" value="${source.dir}/plugins/${project.group}/${project.dir}" override="true"/>
+		<echo msg="${source.dir}" />
 
+		<available file="${source.dir}" type="dir" property="source.available" value="true" />
+		<if>
+			<equals arg1="${source.available}" arg2="1" />
+			<then>
+				<echo msg="Building plugin from source tree ${source.dir}" />
+				<copy todir="${build.dir}/${extension}" haltonerror="false">
+					<fileset dir="${source.dir}">
+						<include name="**/*"/>
+					</fileset>
+				</copy>
+			</then>
+			<else>
+				<fail msg="Source folder does not exist ${source.dir}" />
+			</else>
+		</if>
 	</target>
 
 	<!-- Build target for templates -->
