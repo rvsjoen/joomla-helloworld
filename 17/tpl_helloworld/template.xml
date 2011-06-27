@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="template" version="1.7.0" method="upgrade">
-	<name>tpl_helloworld</name>
+	<name>helloworld</name>
 	<creationDate>0000-00-00</creationDate>
 	<author>John Doe</author>
 	<authorEmail>john@doe.com</authorEmail>
