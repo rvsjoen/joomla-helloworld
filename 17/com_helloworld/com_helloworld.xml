@@ -1,38 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension type="component" version="1.6.0" method="upgrade">
-	<name>HelloWorld</name>
-	<creationDate></creationDate>
-	<author></author>
-	<authorEmail></authorEmail>
-	<authorUrl></authorUrl>
-	<copyright></copyright>
-	<license></license>
-	<version></version>
-	<description></description>
-        <install> <!-- Runs on install -->
-                <sql>
-                        <file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
-                </sql>
-        </install>
-        <uninstall> <!-- Runs on uninstall -->
-                <sql>
-                        <file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
-                </sql>
-        </uninstall>
-        <update> <!-- Runs on update -->
-                <sql>
-                        <file driver="mysql" charset="utf8">sql/update.mysql.utf8.sql</file>
-                </sql>
-        </update>
+<extension type="component" version="1.7.0" method="upgrade">
+	<name>com_helloworld</name>
+	<creationDate>0000-00-00</creationDate>
+	<author>John Doe</author>
+	<authorEmail>john@doe.com</authorEmail>
+	<authorUrl>http://www.john-doe.com</authorUrl>
+	<copyright>Copyright (C) 2005 - 2011 Open Source Matters. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<version>1.7.0</version>
+	<description>COM_HELLOWORLD_DESCRIPTION</description>
 	<media destination="com_helloworld" folder="media">
 		<folder>images</folder>
 		<folder>css</folder>
 		<folder>js</folder>
 		<filename>index.html</filename>
 	</media>
-	<languages folder="language/site">
-		<language tag="en-GB">en-GB.com_helloworld.ini</language>
-	</languages>
 	<files folder="site">
 		<folder>views</folder>
 		<folder>helpers</folder>
@@ -40,25 +22,20 @@
 		<folder>controllers</folder>
 		<filename>index.html</filename>
 		<filename>helloworld.php</filename>
-		<filename>router.php</filename>
 		<filename>controller.php</filename>
 	</files>
 	<administration>
-		<menu>HelloWorld</menu>
 		<files folder="admin">
 			<folder>views</folder>
 			<folder>models</folder>
 			<folder>sql</folder>
 			<folder>controllers</folder>
 			<folder>tables</folder>
+			<folder>language</folder>
 			<filename>index.html</filename>
 			<filename>config.xml</filename>
-			<filename>admin.helloworld.php</filename>
+			<filename>helloworld.php</filename>
 			<filename>controller.php</filename>
 		</files>
-		<languages folder="language/admin">
-			<language tag="en-GB">en-GB.com_helloworld.ini</language>
-			<language tag="en-GB">en-GB.com_helloworld.menu.ini</language>
-		</languages>
 	</administration>
 </extension>
