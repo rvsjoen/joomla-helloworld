@@ -1,0 +1,15 @@
+### Updating extensions from source tree
+#
+# The following commands are used to pull an extension out of the development
+# tree defined by the source.dir property and into the repository
+# "build" is also the default target, so the two commands are equivalent
+
+phing -Dextension=com_helloworld
+phing -Dextension=com_helloworld build
+
+### Packaging extensions
+#
+# The following commands are used to produce installable packages, this is 
+# performed by the dist target
+
+phing -Dextension=com_helloworld dist
