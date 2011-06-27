@@ -41,6 +41,7 @@
 
 	<!-- Build the extension package from the folder -->
 	<target name="dist" depends="prepare">
+		<mkdir dir="${release.dir}" />
 		<zip destfile="${release.dir}/${extension}_${version}.zip">
 			<fileset dir="${extension}" >
 				<include name="**/*"/>
