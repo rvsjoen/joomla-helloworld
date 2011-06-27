@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project default="dist">
+	<property name="extension" 		value="" />
+	<property name="build.dir" 		value="build" />
+	<property name="release.dir" 	value="releases" />
+	<property name="project.dir"	value="${extension}" />
+
+	<!-- Get a nice timestamp to put in the filename -->
+	<tstamp>
+		<format property="buildtime" pattern="%Y%m%d_%H%M"/>
+	</tstamp>
+
+	<!-- Check for the supported source code versioning tools -->
+	<property name="repo.svn" value="no" />
+	<property name="repo.git" value="no" />
+	<available file="${extension}/.svn" type="dir" property="repo.svn" value="yes" />
+	<available file="${extension}/.git" type="dir" property="repo.git" value="yes" />
+
+	<target name="init">
+		<if>
+			<equals arg1="${extension}" arg2="" />
+			<then>
+				<fail message="Extension not specified, use -Dextension=EXTENSION" />
+			</then>
+			<else>
+				<property file="${extension}.properties"  override="true"/>
+			</else>
+		</if>
+		<echo msg="Initializing..." />
+		<echo msg="Git repository...${repo.git}" />
+		<echo msg="SVN repository...${repo.svn}" />
+	</target>
+
+	<target name="prepare">
+		<echo msg="Preparing to build extensions" />
+		<mkdir dir="${build.dir}" />
+		<delete dir="${build.dir}/${extension}" />
+	</target>
+
+	<target name="build" depends="init,prepare">
+		<phingcall target="_${project.type}"></phingcall>
+	</target>
+
+	<!-- Build the extension package from the folder -->
+	<target name="dist" depends="init">
+		<zip destfile="${extension}.zip">
+			<fileset dir="${extension}" >
+				<include name="**/*"/>
+			</fileset>
+		</zip>
+		<echo msg="DONE!" />
+	</target>
+
+	<!-- Build target for modules -->
+	<target name="_module">
+		<if>
+			<equals arg1="${project.client}" arg2="admin" />
+			<then>
+				<property name="source.dir" value="${source.dir}/administrator/modules/${extension}" override="true"/>
+			</then>
+			<else>
+				<property name="source.dir" value="${source.dir}/modules/${extension}" override="true" />
+			</else>
+		</if>
+		<available file="${source.dir}" type="dir" property="source.available" value="true" />
+		<if>
+			<equals arg1="${source.available}" arg2="1" />
+			<then>
+				<echo msg="Building module from source tree ${source.dir}" />
+				<copy todir="${build.dir}/${extension}" haltonerror="false">
+					<fileset dir="${source.dir}">
+						<include name="**/*"/>
+					</fileset>
+				</copy>
+			</then>
+			<else>
+				<fail msg="Source folder does not exist ${source.dir}" />
+			</else>
+		</if>
+	</target>
+
+	<!-- Build target for components -->
+	<target name="_component">
+		<echo msg="Building component from source tree ${source.dir}" />
+		<copy todir="${build.dir}/${extension}/site" haltonerror="false">
+			<fileset dir="${source.dir}/components/${project.dir}">
+				<include name="**/*"/>
+			</fileset>
+		</copy>
+		<copy todir="${build.dir}/${extension}/admin" haltonerror="false">
+			<fileset dir="${source.dir}/administrator/components/${project.dir}">
+				<include name="**/*"/>
+			</fileset>
+		</copy>
+		<available file="${source.dir}/media/${project.dir}" type="dir" property="source.media.available" value="true" />
+		<if>
+			<equals arg1="${source.mediaavailable}" arg2="1" />
+			<then>
+				<copy todir="${build.dir}/${extension}/media" haltonerror="false">
+					<fileset dir="${source.dir}/media/${project.dir}">
+						<include name="**/*"/>
+					</fileset>
+				</copy>
+			</then>
+		</if>
+		<!-- Now move the manifest -->
+		<move file="${build.dir}/${extension}/admin/${project.name}.xml" todir="${build.dir}/${extension}/" />
+	</target>
+
+	<!-- Build target for plugins -->
+	<target name="_plugin">
+
+	</target>
+
+	<!-- Build target for templates -->
+	<target name="_template">
+		<if>
+			<equals arg1="${project.client}" arg2="admin" />
+			<then>
+				<property name="source.dir" value="${source.dir}/administrator/templates/${project.dir}" override="true"/>
+			</then>
+			<else>
+				<property name="source.dir" value="${source.dir}/templates/${project.dir}" override="true" />
+			</else>
+		</if>
+		<available file="${source.dir}" type="dir" property="source.available" value="true" />
+		<if>
+			<equals arg1="${source.available}" arg2="1" />
+			<then>
+				<echo msg="Building template from source tree ${source.dir}" />
+				<copy todir="${build.dir}/${extension}" haltonerror="false">
+					<fileset dir="${source.dir}">
+						<include name="**/*"/>
+					</fileset>
+				</copy>
+			</then>
+			<else>
+				<fail msg="Source folder does not exist ${source.dir}" />
+			</else>
+		</if>
+	</target>
+</project>
