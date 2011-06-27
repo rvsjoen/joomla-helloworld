@@ -47,7 +47,6 @@
 			<folder>tables</folder>
 			<folder>language</folder>
 			<filename>index.html</filename>
-			<filename>config.xml</filename>
 			<filename>helloworld.php</filename>
 			<filename>helloworld.xml</filename>
 			<filename>controller.php</filename>
