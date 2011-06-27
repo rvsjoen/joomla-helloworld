@@ -11,8 +11,8 @@
 	<description>PLG_HELLOWORLD_DESCRIPTION</description>
 	<files>
 		<folder>language</folder>
-		<filename plugin="plg_helloworld">plg_helloworld.php</filename>
-		<filename>plg_helloworld.xml</filename>
+		<filename plugin="helloworld">helloworld.php</filename>
+		<filename>helloworld.xml</filename>
 		<filename>index.html</filename>
 	</files>
 </extension>
