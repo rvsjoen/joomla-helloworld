@@ -10,16 +10,11 @@
 		<format property="version" pattern="%Y%m%d_%H%M"/>
 	</tstamp>
 
-	<!-- Check for the supported source code versioning tools -->
-	<property name="repo.svn" value="no" />
-	<property name="repo.git" value="no" />
-	<available file="${extension}/.svn" type="dir" property="repo.svn" value="yes" />
-	<available file="${extension}/.git" type="dir" property="repo.git" value="yes" />
-
 	<!-- Check if we have a build.properties file -->
 	<available file="build.properties" type="file" property="build.properties" value="true" />
 
-	<target name="init">
+	<!-- Do initialization stuff -->
+	<target name="prepare">
 		<if>
 			<equals arg1="${build.properties}" arg2="1" />
 			<then>
@@ -35,23 +30,17 @@
 				<property file="${extension}.properties"  override="true"/>
 			</else>
 		</if>
-		<echo msg="Initializing..." />
-		<echo msg="Git repository...${repo.git}" />
-		<echo msg="SVN repository...${repo.svn}" />
 	</target>
 
-	<target name="prepare">
-		<echo msg="Preparing to build extensions" />
+	<!-- This is a generic entry point for the build target -->
+	<target name="build" depends="prepare">
 		<mkdir dir="${build.dir}" />
 		<delete dir="${build.dir}/${extension}" />
-	</target>
-
-	<target name="build" depends="init,prepare">
 		<phingcall target="_${project.type}"></phingcall>
 	</target>
 
 	<!-- Build the extension package from the folder -->
-	<target name="dist" depends="init">
+	<target name="dist" depends="prepare">
 		<zip destfile="${release.dir}/${extension}_${version}.zip">
 			<fileset dir="${extension}" >
 				<include name="**/*"/>
@@ -60,8 +49,27 @@
 		<echo msg="DONE!" />
 	</target>
 
-	<!-- Build target for modules -->
-	<target name="_module">
+	<!-- Delete the extension to make room for the updated version -->
+	<target name="_clean">
+		<delete includeemptydirs="true">
+		  <fileset dir="${project.dir}">
+		  	<include name="*" />
+		  	<include name="*/**" />
+		  </fileset>
+		</delete>
+	</target>
+	
+	<!-- Copy the newly built extension into the repository -->
+	<target name="_sync">
+		<copy todir="${project.dir}">
+			<fileset dir="${build.dir}/${extension}">
+				<include name="**/*"/>
+			</fileset>
+		</copy>
+	</target>
+	
+	<!-- Check if the extension has a media folder and copy it-->
+	<target name="_media">
 		<available file="${source.dir}/media/${project.dir}" type="dir" property="source.media.available" value="true" />
 		<if>
 			<equals arg1="${source.media.available}" arg2="1" />
@@ -73,6 +81,14 @@
 				</copy>
 			</then>
 		</if>
+	</target>
+	
+	<!-- Build target for modules -->
+	<target name="_module">
+		<!-- First we check if the extension has a media folder -->
+		<phingcall target="_media" />
+
+		<!-- Add the administrator prefix if this is an admin extension -->
 		<if>
 			<equals arg1="${project.client}" arg2="admin" />
 			<then>
@@ -82,6 +98,8 @@
 				<property name="source.dir" value="${source.dir}/modules/${project.dir}" override="true" />
 			</else>
 		</if>
+		
+		<!-- Now use the updated source.dir property to copy the source files -->
 		<available file="${source.dir}" type="dir" property="source.available" value="true" />
 		<if>
 			<equals arg1="${source.available}" arg2="1" />
@@ -97,22 +115,17 @@
 				<fail msg="Source folder does not exist ${source.dir}" />
 			</else>
 		</if>
+		
+		<!-- Now that we have built the extension put it back into the repository --> 
+		<phingcall target="_clean" />
+		<phingcall target="_sync" />
 	</target>
 
 	<!-- Build target for components -->
 	<target name="_component">
-		<echo msg="Building component from source tree ${source.dir}" />
-		<available file="${source.dir}/media/${project.dir}" type="dir" property="source.media.available" value="true" />
-		<if>
-			<equals arg1="${source.media.available}" arg2="1" />
-			<then>
-				<copy todir="${build.dir}/${extension}/media" haltonerror="false">
-					<fileset dir="${source.dir}/media/${project.dir}">
-						<include name="**/*"/>
-					</fileset>
-				</copy>
-			</then>
-		</if>
+		<!-- First we check if the extension has a media folder -->
+		<phingcall target="_media" />
+		
 		<copy todir="${build.dir}/${extension}/site" haltonerror="false">
 			<fileset dir="${source.dir}/components/${project.dir}">
 				<include name="**/*"/>
@@ -123,12 +136,18 @@
 				<include name="**/*"/>
 			</fileset>
 		</copy>
+		
+		<!-- Now that we have built the extension put it back into the repository -->
+		<phingcall target="_clean" />
+		<phingcall target="_sync" />
 	</target>
 
 	<!-- Build target for plugins -->
 	<target name="_plugin">
+		<!-- First we check if the extension has a media folder -->
+		<phingcall target="_media" />
+			
 		<property name="source.dir" value="${source.dir}/plugins/${project.group}/${project.dir}" override="true"/>
-		<echo msg="${source.dir}" />
 
 		<available file="${source.dir}" type="dir" property="source.available" value="true" />
 		<if>
@@ -145,6 +164,10 @@
 				<fail msg="Source folder does not exist ${source.dir}" />
 			</else>
 		</if>
+		
+		<!-- Now that we have built the extension put it back into the repository -->
+		<phingcall target="_clean" />
+		<phingcall target="_sync" />
 	</target>
 
 	<!-- Build target for templates -->
@@ -173,5 +196,9 @@
 				<fail msg="Source folder does not exist ${source.dir}" />
 			</else>
 		</if>
+		<!-- Now that we have built the extension put it back into the repository -->
+		<phingcall target="_clean" />
+		<phingcall target="_sync" />
 	</target>
+
 </project>
