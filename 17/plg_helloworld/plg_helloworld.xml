@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE install PUBLIC "-//Joomla! 1.5//DTD plugin 1.0//EN" "http://www.joomla.org/xml/dtd/1.5/plugin-install.dtd">
-<install type="plugin" version="1.5" group="system" method="upgrade">
-	<name>HelloWorld</name>
-	<creationDate></creationDate>
-	<author></author>
-	<authorEmail></authorEmail>
-	<authorUrl></authorUrl>
-	<copyright></copyright>
-	<license></license>
-	<version></version>
-	<description></description>
+<extension type="plugin" version="1.5" group="system" method="upgrade">
+	<name>plg_helloworld</name>
+	<creationDate>0000-00-00</creationDate>
+	<author>John Doe</author>
+	<authorEmail>john@doe.com</authorEmail>
+	<authorUrl>http://www.john-doe.com</authorUrl>
+	<copyright>Copyright (C) 2005 - 2011 Open Source Matters. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<version>1.7.0</version>
+	<description>PLG_HELLOWORLD_DESCRIPTION</description>
 	<files>
+		<folder>language</folder>
 		<filename plugin="plg_helloworld">plg_helloworld.php</filename>
+		<filename>plg_helloworld.xml</filename>
+		<filename>index.html</filename>
 	</files>
-</install>
+</extension>
