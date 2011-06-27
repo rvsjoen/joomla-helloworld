@@ -15,8 +15,15 @@
 	<property name="repo.git" value="no" />
 	<available file="${extension}/.svn" type="dir" property="repo.svn" value="yes" />
 	<available file="${extension}/.git" type="dir" property="repo.git" value="yes" />
+	<available file="build.properties" type="file" property="build.properties" value="true" />
 
 	<target name="init">
+		<if>
+			<equals arg1="${build.properties}" arg2="1" />
+			<then>
+				<property file="build.properties"  override="true"/>
+			</then>
+		</if>
 		<if>
 			<equals arg1="${extension}" arg2="" />
 			<then>
@@ -43,7 +50,7 @@
 
 	<!-- Build the extension package from the folder -->
 	<target name="dist" depends="init">
-		<zip destfile="${extension}.zip">
+		<zip destfile="${release.dir}/${extension}.zip">
 			<fileset dir="${extension}" >
 				<include name="**/*"/>
 			</fileset>
@@ -56,10 +63,10 @@
 		<if>
 			<equals arg1="${project.client}" arg2="admin" />
 			<then>
-				<property name="source.dir" value="${source.dir}/administrator/modules/${extension}" override="true"/>
+				<property name="source.dir" value="${source.dir}/administrator/modules/${project.dir}" override="true"/>
 			</then>
 			<else>
-				<property name="source.dir" value="${source.dir}/modules/${extension}" override="true" />
+				<property name="source.dir" value="${source.dir}/modules/${project.dir}" override="true" />
 			</else>
 		</if>
 		<available file="${source.dir}" type="dir" property="source.available" value="true" />
