@@ -61,7 +61,7 @@
 		</copy>
 	</target>
 	
-	<!-- Check if the extension has a media folder and copy it-->
+	<!-- Check if the extension has a media folder and copy it -->
 	<target name="_media">
 		<available file="${source.dir}/media/${project.dir}" type="dir" property="source.media.available" value="true" />
 		<if>
@@ -134,8 +134,8 @@
 		<move file="${build.dir}/${extension}/admin/${project.name}.xml" todir="${build.dir}/${extension}" />
 		
 		<!-- Now that we have built the extension put it back into the repository -->
-		<phingcall target="_clean" />
-		<phingcall target="_sync" />
+		<!--		<phingcall target="_clean" />
+		<phingcall target="_sync" /> -->
 	</target>
 
 	<!-- Build target for plugins -->
