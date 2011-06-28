@@ -24,13 +24,13 @@
             <schemapath type="mysql">sql/updates/mysql</schemapath>
         </schemas>
 	</update>
-	<media destination="com_helloworld" folder="../media">
+	<media destination="com_helloworld" folder="media">
 		<folder>images</folder>
 		<folder>css</folder>
 		<folder>js</folder>
 		<filename>index.html</filename>
 	</media>
-	<files folder="../site">
+	<files folder="site">
 		<folder>views</folder>
 		<folder>models</folder>
 		<folder>controllers</folder>
@@ -39,7 +39,7 @@
 		<filename>controller.php</filename>
 	</files>
 	<administration>
-		<files folder="../admin">
+		<files folder="admin">
 			<folder>views</folder>
 			<folder>models</folder>
 			<folder>sql</folder>
@@ -48,7 +48,6 @@
 			<folder>language</folder>
 			<filename>index.html</filename>
 			<filename>helloworld.php</filename>
-			<filename>helloworld.xml</filename>
 			<filename>controller.php</filename>
 		</files>
 	</administration>
