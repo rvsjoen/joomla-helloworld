@@ -1,7 +1,5 @@
--- @version             $Id$
--- @package             HelloWorld
--- @subpackage  		Component
--- @copyright   		Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
--- @license             GNU General Public License version 2 or later; see LICENSE.txt
-
-SELECT 1;
+-- @version 	$Id$
+-- @package 	HelloWorld
+-- @subpackage  Component
+-- @copyright 	Copyright (C) 2005 - 2011 Open Source Matters, Inc. All rights reserved.
+-- @license 	http://www.gnu.org/licenses/gpl-2.0.html
