@@ -63,12 +63,12 @@
 	
 	<!-- Check if the extension has a media folder and copy it -->
 	<target name="_media">
-		<available file="${source.dir}/media/${project.dir}" type="dir" property="source.media.available" value="true" />
+		<available file="${source.dir}/media/${project.name}" type="dir" property="source.media.available" value="true" />
 		<if>
 			<equals arg1="${source.media.available}" arg2="1" />
 			<then>
 				<copy todir="${build.dir}/${extension}/media" haltonerror="false">
-					<fileset dir="${source.dir}/media/${project.dir}">
+					<fileset dir="${source.dir}/media/${project.name}">
 						<include name="**/*"/>
 					</fileset>
 				</copy>
