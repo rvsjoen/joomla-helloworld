@@ -63,12 +63,12 @@
 	
 	<!-- Check if the extension has a media folder and copy it -->
 	<target name="_media">
-		<available file="${source.dir}/media/${project.name}" type="dir" property="source.media.available" value="true" />
+		<available file="${source.dir}/media/${project.dir}" type="dir" property="source.media.available" value="true" />
 		<if>
 			<equals arg1="${source.media.available}" arg2="1" />
 			<then>
 				<copy todir="${build.dir}/${extension}/media" haltonerror="false">
-					<fileset dir="${source.dir}/media/${project.name}">
+					<fileset dir="${source.dir}/media/${project.dir}">
 						<include name="**/*"/>
 					</fileset>
 				</copy>
@@ -132,10 +132,19 @@
 
 		<!-- Move the manifest to the parent directory -->
 		<move file="${build.dir}/${extension}/admin/${project.name}.xml" todir="${build.dir}/${extension}" />
+
+		<!-- Move the installer script if it exists -->
+		<available file="${build.dir}/${extension}/admin/script.php" type="file" property="script.available" value="true" />
+		<if>
+			<equals arg1="${script.available}" arg2="1" />
+			<then>
+				<move file="${build.dir}/${extension}/admin/script.php" todir="${build.dir}/${extension}" />
+			</then>
+		</if>
 		
 		<!-- Now that we have built the extension put it back into the repository -->
-		<!--		<phingcall target="_clean" />
-		<phingcall target="_sync" /> -->
+		<phingcall target="_clean" />
+		<phingcall target="_sync" />
 	</target>
 
 	<!-- Build target for plugins -->
