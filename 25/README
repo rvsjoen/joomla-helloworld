@@ -11,6 +11,11 @@ module : "mod_"
 template : "tpl_"
 plugin: "plg_GROUP_"
 
+Administrator modules and templates must use the following prefixes
+
+module: "mod_admin_"
+template: "tpl_admin_"
+
 ### Language files
 
 When using this script, the language files for an extension needs to be stored within the folder of the extension itself and not in the global language folder.
