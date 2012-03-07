@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project default="dist">
-	<property name="extension" 		value="" />
-	<property name="build.dir" 		value="build" />
+	<property name="extension" 	value="" />
+	<property name="build.dir" 	value="build" />
 	<property name="release.dir" 	value="releases" />
 	<property name="project.dir"	value="${extension}" />
 
@@ -259,6 +259,8 @@
                                 $this->project->setProperty("project.dir", implode("_", $arr));
                                 $this->project->setProperty("project.manifest", implode("_", $arr));
                                 if($arr[1] == 'admin'){
+				unset($arr[1]);
+                                    $this->project->setProperty("project.dir", implode("_", $arr));
                                     $this->project->setProperty("project.client", "admin");
                                 }
                                 break;
@@ -272,7 +274,8 @@
                                 $this->project->setProperty("project.type", "template");
                                 $this->project->setProperty("project.dir", implode("_", array_slice($arr, 1)));
                                 $this->project->setProperty("project.manifest", "templateDetails.xml");
-                                if($arr[1] == 'admin'){
+				if($arr[1] == 'admin'){
+                                    $this->project->setProperty("project.dir", implode("_", $arr));
                                     $this->project->setProperty("project.client", "admin");
                                 }
                                 break;
