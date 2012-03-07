@@ -11,6 +11,9 @@ module : "mod_"
 template : "tpl_"
 plugin: "plg_GROUP_"
 
+### Language files
+
+When using this script, the language files for an extension needs to be stored within the folder of the extension itself and not in the global language folder.
 
 #### Usage examples
 
