@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project default="dist">
-	<property name="extension" 	value="" />
-	<property name="build.dir" 	value="build" />
+	<property name="extension" 		value="" />
+	<property name="build.dir" 		value="build" />
 	<property name="release.dir" 	value="releases" />
 	<property name="project.dir"	value="${extension}" />
 
@@ -94,12 +94,12 @@
 
 	<!-- Check if the extension has a media folder and copy it -->
 	<target name="_media">
-		<available file="${source.dir}/media/${project.dir}" type="dir" property="source.media.available" value="true" />
+		<available file="${source.dir}/media/${extension}" type="dir" property="source.media.available" value="true" />
 		<if>
 			<equals arg1="${source.media.available}" arg2="1" />
 			<then>
 				<copy todir="${build.dir}/${extension}/media" haltonerror="false">
-					<fileset dir="${source.dir}/media/${project.dir}">
+					<fileset dir="${source.dir}/media/${extension}">
 						<include name="**/*"/>
 					</fileset>
 				</copy>
@@ -259,8 +259,6 @@
                                 $this->project->setProperty("project.dir", implode("_", $arr));
                                 $this->project->setProperty("project.manifest", implode("_", $arr));
                                 if($arr[1] == 'admin'){
-				unset($arr[1]);
-                                    $this->project->setProperty("project.dir", implode("_", $arr));
                                     $this->project->setProperty("project.client", "admin");
                                 }
                                 break;
@@ -274,8 +272,7 @@
                                 $this->project->setProperty("project.type", "template");
                                 $this->project->setProperty("project.dir", implode("_", array_slice($arr, 1)));
                                 $this->project->setProperty("project.manifest", "templateDetails.xml");
-				if($arr[1] == 'admin'){
-                                    $this->project->setProperty("project.dir", implode("_", $arr));
+                                if($arr[1] == 'admin'){
                                     $this->project->setProperty("project.client", "admin");
                                 }
                                 break;
