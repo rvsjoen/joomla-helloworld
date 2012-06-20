@@ -42,6 +42,7 @@
 				<include name="**/*"/>
 			</fileset>
 		</copy>
+
         <reflexive>
           <fileset dir="${build.dir}/${extension}">
             <include pattern="${project.manifest}.xml"/>
@@ -252,7 +253,7 @@
                                 $this->project->setProperty("project.type", "plugin");
                                 $this->project->setProperty("plugin.group", $arr[1]);
                                 $this->project->setProperty("project.dir", implode("_", array_slice($arr, 2)));
-                                $this->project->setProperty("project.manifest", implode("_", array_slice($arr, 1)));
+                                $this->project->setProperty("project.manifest", implode("_", array_slice($arr, 2)));
                                 break;
                             case 'mod':
                                 $this->project->setProperty("project.type", "module");
